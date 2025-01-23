@@ -1,0 +1,110 @@
+// Configuración del gráfico con Chart.js
+const ctx = document.getElementById("matrixChart").getContext("2d");
+
+const chart = new Chart(ctx, {
+  type: "bubble",
+  data: {
+    datasets: [
+      {
+        label: "Biodiversidad",
+        data: [{ x: 20, y: 30, r: 10 }], // Ejemplo
+        backgroundColor: "rgba(173, 216, 230, 0.5)",
+      },
+      {
+        label: "Gestión del Agua",
+        data: [{ x: 80, y: 40, r: 15 }],
+        backgroundColor: "rgba(135, 206, 250, 0.5)",
+      },
+      {
+        label: "Derechos Humanos",
+        data: [{ x: 40, y: 70, r: 20 }],
+        backgroundColor: "rgba(100, 149, 237, 0.5)",
+      },
+      {
+        label: "Gobernanza Institucional",
+        data: [{ x: 90, y: 90, r: 25 }],
+        backgroundColor: "rgba(65, 105, 225, 0.5)",
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      annotation: {
+        annotations: {
+          quadrantLow: {
+            type: "box",
+            xMin: 0,
+            xMax: 50,
+            yMin: 0,
+            yMax: 50,
+            backgroundColor: "rgba(173, 216, 230, 0.3)", // Azul claro
+            borderWidth: 0,
+          },
+          quadrantMediumLow: {
+            type: "box",
+            xMin: 50,
+            xMax: 100,
+            yMin: 0,
+            yMax: 50,
+            backgroundColor: "rgba(135, 206, 250, 0.3)", // Azul medio
+            borderWidth: 0,
+          },
+          quadrantMediumHigh: {
+            type: "box",
+            xMin: 0,
+            xMax: 50,
+            yMin: 50,
+            yMax: 100,
+            backgroundColor: "rgba(100, 149, 237, 0.3)", // Azul fuerte
+            borderWidth: 0,
+          },
+          quadrantHigh: {
+            type: "box",
+            xMin: 50,
+            xMax: 100,
+            yMin: 50,
+            yMax: 100,
+            backgroundColor: "rgba(65, 105, 225, 0.3)", // Azul oscuro
+            borderWidth: 0,
+          },
+        },
+      },
+    },
+    scales: {
+      x: {
+        title: { display: true, text: "Impacto Financiero (%)" },
+        min: 0,
+        max: 100,
+      },
+      y: {
+        title: { display: true, text: "Impacto Socioambiental (%)" },
+        min: 0,
+        max: 100,
+      },
+    },
+  },
+});
+
+// Función para actualizar los valores de los sliders
+function updateValues() {
+  const development = parseInt(document.getElementById("development").value) || 0;
+  const stakeholders = parseInt(document.getElementById("stakeholder").value) || 0;
+  const expert = parseInt(document.getElementById("expert").value) || 0;
+
+  document.getElementById("developmentDisplay").innerText = `${development}%`;
+  document.getElementById("stakeholderDisplay").innerText = `${stakeholders}%`;
+  document.getElementById("expertDisplay").innerText = `${expert}%`;
+
+  // Opcional: puedes agregar lógica para actualizar el gráfico dinámicamente aquí.
+}
+
+// Función para seleccionar el tema ESG
+function selectTopic() {
+  const selectedTopic = document.getElementById("topicSelect").value;
+  if (!selectedTopic) {
+    alert("Por favor, selecciona un tema ESG.");
+    return;
+  }
+  alert(`Tema seleccionado: ${selectedTopic}`);
+}
